@@ -29,12 +29,14 @@ import it.prova.myebay.validation.ValidationWithPassword;
 @RequestMapping(value = "/utente")
 public class UtenteController {
 
+	
 	@Autowired
 	private UtenteService utenteService;
 
 	@Autowired
 	private RuoloService ruoloService;
 
+	
 	@GetMapping
 	public ModelAndView listAllUtenti() {
 		ModelAndView mv = new ModelAndView();
