@@ -28,17 +28,20 @@ public class CategoriaServiceImpl implements CategoriaService {
 	}
 
 	@Override
+	@Transactional
 	public void aggiorna(Categoria categoriaInstance) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	@Transactional
 	public void inserisciNuovo(Categoria categoriaInstance) {
 		categoriaRepository.save(categoriaInstance);
 	}
 
 	@Override
+	@Transactional
 	public void rimuovi(Long id) {
 		// TODO Auto-generated method stub
 		
