@@ -7,8 +7,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import it.prova.myebay.service.CategoriaService;
 import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
+import it.prova.myebay.model.Categoria;
 import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.model.Utente;
 
@@ -19,6 +21,8 @@ public class MyebayApplication implements CommandLineRunner{
 	private RuoloService ruoloServiceInstance;
 	@Autowired
 	private UtenteService utenteServiceInstance;
+	@Autowired
+	private CategoriaService categoriaService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MyebayApplication.class, args);
@@ -33,6 +37,16 @@ public class MyebayApplication implements CommandLineRunner{
 		if (ruoloServiceInstance.cercaPerDescrizioneECodice("Classic User", "ROLE_CLASSIC_USER") == null) {
 			ruoloServiceInstance.inserisciNuovo(new Ruolo("Classic User", "ROLE_CLASSIC_USER"));
 		}
+		if (categoriaService.cercaPerDescrizioneECodice("Categoria Elettronica", "Elettronica") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Categoria Elettronica", "Elettronica"));
+		}
+		if (categoriaService.cercaPerDescrizioneECodice("Categoria Casa", "Casa") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Categoria Casa", "Casa"));
+		}
+		if (categoriaService.cercaPerDescrizioneECodice("Categoria Giochi", "Giochi") == null) {
+			categoriaService.inserisciNuovo(new Categoria("Categoria Giochi", "Giochi"));
+		}
+		
 		
 
 		// a differenza degli altri progetti cerco solo per username perche' se vado
