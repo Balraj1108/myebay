@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+
 import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.model.StatoUtente;
 import it.prova.myebay.model.Utente;
@@ -35,6 +36,9 @@ public class UtenteDTO {
 	private String cognome;
 
 	private Date dateCreated;
+	
+	
+	private Integer creditoResiduo;
 
 	private StatoUtente stato;
 
@@ -43,13 +47,15 @@ public class UtenteDTO {
 	public UtenteDTO() {
 	}
 
-	public UtenteDTO(Long id, String username, String nome, String cognome, StatoUtente stato) {
+	public UtenteDTO(Long id, String username, String nome, String cognome, StatoUtente stato
+			,Integer creditoResiduo) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.stato = stato;
+		this.creditoResiduo = creditoResiduo;
 	}
 
 	public Long getId() {
@@ -130,7 +136,7 @@ public class UtenteDTO {
 
 	public Utente buildUtenteModel(boolean includeIdRoles) {
 		Utente result = new Utente(this.id, this.username, this.password, this.nome, this.cognome, this.dateCreated,
-				this.stato);
+				this.stato, this.creditoResiduo);
 		if (includeIdRoles && ruoliIds != null)
 			result.setRuoli(Arrays.asList(ruoliIds).stream().map(id -> new Ruolo(id)).collect(Collectors.toSet()));
 
@@ -140,7 +146,7 @@ public class UtenteDTO {
 	// niente password...
 	public static UtenteDTO buildUtenteDTOFromModel(Utente utenteModel, boolean includeRoles) {
 		UtenteDTO result = new UtenteDTO(utenteModel.getId(), utenteModel.getUsername(), utenteModel.getNome(),
-				utenteModel.getCognome(), utenteModel.getStato());
+				utenteModel.getCognome(), utenteModel.getStato(), utenteModel.getCreditoResiduo());
 
 		if (includeRoles && !utenteModel.getRuoli().isEmpty())
 			result.ruoliIds = utenteModel.getRuoli().stream().map(r -> r.getId()).collect(Collectors.toList())
