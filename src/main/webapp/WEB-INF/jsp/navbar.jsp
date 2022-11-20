@@ -43,9 +43,6 @@
               
               <form action="${pageContext.request.contextPath}/annuncio/list" method="post">
               <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
-              <!-- 
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/list">Acquisti Effettuati</a>
-               -->
               <button type="submit" name="idAnnuncio" id="idAnnuncio" class="dropdown-item">Gestione Annunci</button>
               </form>
               

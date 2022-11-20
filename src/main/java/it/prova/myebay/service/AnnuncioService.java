@@ -21,4 +21,6 @@ public interface AnnuncioService {
 	public Annuncio caricaSingoloElementoEager(Long id);
 	
 	public 	List<Annuncio> FindAllAnnunciById(Long id);
+	
+	public Annuncio caricaSingoloElementoConCategorie(Long id);
 }

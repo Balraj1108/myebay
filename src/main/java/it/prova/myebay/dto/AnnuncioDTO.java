@@ -126,20 +126,25 @@ public class AnnuncioDTO {
 		return result;
 	}
 
-	public static AnnuncioDTO buildAnnuncioDTOFromModel(Annuncio annuncioModel, boolean includeUtenti) {
+	public static AnnuncioDTO buildAnnuncioDTOFromModel(Annuncio annuncioModel, boolean includeUtenti
+			, boolean includeCategorie) {
 		AnnuncioDTO result = new AnnuncioDTO(annuncioModel.getId(), annuncioModel.getTestoAnnuncio(), annuncioModel.getPrezzo(),
 				annuncioModel.getData(), annuncioModel.getAperto());
 
 		if (includeUtenti)
 			result.setUtenteInserimento(UtenteDTO.buildUtenteDTOFromModel(annuncioModel.getUtenteInserimento(), true));
-			
+		
+		if (annuncioModel.getCategorie() != null && includeCategorie && !annuncioModel.getCategorie().isEmpty())
+			result.categorieIds = annuncioModel.getCategorie().stream().map(r -> r.getId()).collect(Collectors.toList())
+					.toArray(new Long[] {});	
 
 		return result;
 	}
 
-	public static List<AnnuncioDTO> createAnnuncioDTOListFromModelList(List<Annuncio> modelListInput, boolean includeUtenti) {
+	public static List<AnnuncioDTO> createAnnuncioDTOListFromModelList(List<Annuncio> modelListInput, boolean includeUtenti
+			, boolean includeCategorie) {
 		return modelListInput.stream().map(annuncioEntity -> {
-			return AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioEntity, includeUtenti);
+			return AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioEntity, includeUtenti, includeCategorie);
 		}).collect(Collectors.toList());
 	}
 	

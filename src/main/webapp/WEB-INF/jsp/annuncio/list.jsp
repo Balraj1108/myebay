@@ -52,10 +52,14 @@
 										<td>${utenteItem.data }</td>
 										<td>${utenteItem.aperto }</td>
 										<td>
-											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Visualizza</a>
+										
+											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/annuncio/show/${utenteItem.id }">Visualizza</a>
 											
-											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Edit</a>
-											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Delete</a>
+											<c:if test="${utenteItem.aperto == true}">
+												<a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/annuncio/edit/${utenteItem.id }">Edit</a>
+												
+												<a class="btn btn-sm btn-danger" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Delete</a>
+											</c:if>
 											
 										</td>
 									</tr>

@@ -67,4 +67,10 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 		return annuncioRepository.FindAllAnnunciById(id);
 	}
 
+	@Override
+	public Annuncio caricaSingoloElementoConCategorie(Long id) {
+		// TODO Auto-generated method stub
+		return annuncioRepository.findByIdConCategorie(id).orElse(null);
+	}
+
 }

@@ -2,7 +2,10 @@ package it.prova.myebay.web.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -61,7 +64,7 @@ public class AcquistoController {
 	@PostMapping("/confermaAcquisto")
 	public String confermaAcquisto(@RequestParam(name = "idAnnuncio") Long idAnnuncio
 			,@RequestParam(name = "utenteId") Long utenteId
-			,Model model, RedirectAttributes redirectAttrs) {
+			,Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
 		Utente utente = utenteService.caricaSingoloUtente(utenteId);
 		Annuncio annuncio = annuncioService.caricaSingoloElemento(idAnnuncio);
 		AcquistoDTO acquistoDTO = new AcquistoDTO(annuncio.getTestoAnnuncio(), annuncio.getData(), annuncio.getPrezzo());
@@ -81,6 +84,15 @@ public class AcquistoController {
 		acquistoService.inserisciNuovo(acquistoDTO.buildAcquistoModel());
 		annuncio.setAperto(false);
 		annuncioService.aggiorna(annuncio);
+		
+		Utente utenteFromDb = utenteService.caricaSingoloUtente(utenteId);
+		UtenteDTO utenteParziale = new UtenteDTO();
+		utenteParziale.setNome(utenteFromDb.getNome());
+		utenteParziale.setCognome(utenteFromDb.getCognome());
+		utenteParziale.setId(utenteFromDb.getId());
+		utenteParziale.setCreditoResiduo(utenteFromDb.getCreditoResiduo());
+		request.getSession().setAttribute("userInfo", utenteParziale);
+		
 		
 		return "acquisto/list";
 	}

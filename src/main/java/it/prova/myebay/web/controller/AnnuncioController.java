@@ -2,6 +2,9 @@ package it.prova.myebay.web.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +30,7 @@ import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
 import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
+import it.prova.myebay.validation.ValidationNoPassword;
 
 @Controller
 public class AnnuncioController {
@@ -45,7 +50,7 @@ public class AnnuncioController {
 	@PostMapping("/listAnnuncio")
 	public String listAnnunci(Annuncio utenteExample, ModelMap model) {
 		model.addAttribute("annuncio_list_attribute",
-				AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.findByExample(utenteExample), false));
+				AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.findByExample(utenteExample), true, true));
 		return "listAnnuncio";
 	}
 	
@@ -85,11 +90,11 @@ public class AnnuncioController {
 	@GetMapping("/showAnnuncio/{idAnnuncio}")
 	public String showFilm(@PathVariable(required = true) Long idAnnuncio, Model model) {
 		model.addAttribute("show_annuncio_attr",
-				AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoEager(idAnnuncio), true));
+				AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoEager(idAnnuncio), true, true));
 		return "showAnnuncio";
 	}
 	
-	@PostMapping("/annuncio/list")
+	@RequestMapping("/annuncio/list")
 	public String insertAnnuncio(@RequestParam(name = "utenteId") Long utenteId
 			,Model model) {
 		//model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
@@ -99,8 +104,45 @@ public class AnnuncioController {
 		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
 		
 			model.addAttribute("annuncio_list_attribute",
-					AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.FindAllAnnunciById(utenteId), true));
+					AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.FindAllAnnunciById(utenteId), true, true));
 			
 		return "annuncio/list";
 	}
+	
+	@GetMapping("/annuncio/show/{idAnnuncio}")
+	public String showAnnuncio(@PathVariable(required = true) Long idAnnuncio, Model model) {
+		model.addAttribute("show_annuncio_attr",
+				AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoEager(idAnnuncio), true, true));
+		return "/annuncio/show";
+	}
+	
+	@GetMapping("/annuncio/edit/{idAnnuncio}")
+	public String edit(@PathVariable(required = true) Long idAnnuncio, Model model, HttpServletRequest request) {
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoConCategorie(idAnnuncio), true, true);
+		model.addAttribute("edit_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+		return "annuncio/edit";
+	}
+	
+	@PostMapping("/annuncio/update")
+	public String update(@Valid @ModelAttribute("edit_annuncio_attr") AnnuncioDTO annuncioDTO,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, HttpServletRequest request) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+			return "annuncio/list";
+		}
+		
+		annuncioDTO.setData(new Date());
+		annuncioDTO.setAperto(true);
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		Long idUtenteSessione = utenteInSessione.getId();
+		annuncioDTO.setUtenteInserimento(utenteInSessione);
+		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true));
+
+		redirectAttrs.addFlashAttribute("successMessage", "" + idUtenteSessione +"");
+		redirectAttrs.addFlashAttribute("utenteId", idUtenteSessione);
+		return "redirect:/home";
+	}
+	
 }
