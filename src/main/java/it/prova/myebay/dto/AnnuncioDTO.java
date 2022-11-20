@@ -1,18 +1,30 @@
 package it.prova.myebay.dto;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import it.prova.myebay.model.Annuncio;
+import it.prova.myebay.model.Categoria;
+import it.prova.myebay.model.Ruolo;
+import it.prova.myebay.validation.ValidationNoPassword;
+import it.prova.myebay.validation.ValidationWithPassword;
 
 public class AnnuncioDTO {
 
 	
 	private Long id;
 	
+	@NotBlank(message = "{nome.notblank}", groups = { ValidationWithPassword.class, ValidationNoPassword.class })
 	private String testoAnnuncio;
 	
+	@NotNull(message = "{film.minutiDurata.notnull}")
+	@Min(1)
 	private Integer prezzo;
 	
 	private Date data;
@@ -20,6 +32,8 @@ public class AnnuncioDTO {
 	private Boolean aperto;
 	
 	private UtenteDTO utenteInserimento;
+	
+	private Long[] categorieIds;
 	
 	public AnnuncioDTO() {
 		
@@ -93,9 +107,23 @@ public class AnnuncioDTO {
 		this.utenteInserimento = utenteInserimento;
 	}
 	
-	public Annuncio buildAnnuncioModel() {
-		return new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.aperto,
+	
+	
+	public Long[] getCategorieIds() {
+		return categorieIds;
+	}
+
+	public void setCategorieIds(Long[] categorieIds) {
+		this.categorieIds = categorieIds;
+	}
+
+	public Annuncio buildAnnuncioModel(boolean includeIdCategorie) {
+		Annuncio result = new Annuncio(this.id, this.testoAnnuncio, this.prezzo, this.data, this.aperto,
 				this.utenteInserimento.buildUtenteModel(true));
+		if (includeIdCategorie && categorieIds != null)
+			result.setCategorie(Arrays.asList(categorieIds).stream().map(id -> new Categoria(id)).collect(Collectors.toSet()));
+
+		return result;
 	}
 
 	public static AnnuncioDTO buildAnnuncioDTOFromModel(Annuncio annuncioModel, boolean includeUtenti) {

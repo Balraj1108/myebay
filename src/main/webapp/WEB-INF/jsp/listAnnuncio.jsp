@@ -47,14 +47,14 @@
 			                <tbody>
 			                	<c:forEach items="${annuncio_list_attribute }" var="utenteItem">
 									<tr>
-										<td>${utenteItem.nome }</td>
-										<td>${utenteItem.cognome }</td>
-										<td>${utenteItem.username }</td>
-										<td>${utenteItem.stato }</td>
+										<td>${utenteItem.testoAnnuncio }</td>
+										<td>${utenteItem.prezzo }</td>
+										<td>${utenteItem.data }</td>
+										<td>${utenteItem.aperto }</td>
 										<td>
-											<a class="btn btn-sm btn-outline-secondary" href="laservletpervisualizzare">Visualizza</a>
+											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/showAnnuncio${utenteItem.id }">Visualizza</a>
 											<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/utente/edit/${utenteItem.id }">Edit</a>
-											<a id="changeStatoLink_#_${utenteItem.id }" class="btn btn-outline-${utenteItem.isAttivo()?'danger':'success'} btn-sm link-for-modal" data-bs-toggle="modal" data-bs-target="#confirmOperationModal"  >${utenteItem.isAttivo()?'Disabilita':'Abilita'}</a>
+											
 										</td>
 									</tr>
 								</c:forEach>
