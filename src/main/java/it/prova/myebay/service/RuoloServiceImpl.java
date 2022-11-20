@@ -47,4 +47,11 @@ public class RuoloServiceImpl implements RuoloService {
 		return ruoloRepository.findByDescrizioneAndCodice(descrizione, codice);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Ruolo> findAllRuoliByIds(Long[] ids) {
+		// TODO Auto-generated method stub
+		return ruoloRepository.findAllRuoliByIds(ids);
+	}
+
 }

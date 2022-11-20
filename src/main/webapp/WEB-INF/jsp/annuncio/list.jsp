@@ -58,7 +58,7 @@
 											<c:if test="${utenteItem.aperto == true}">
 												<a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/annuncio/edit/${utenteItem.id }">Edit</a>
 												
-												<a class="btn btn-sm btn-danger" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Delete</a>
+												<a class="btn btn-sm btn-danger" href="${pageContext.request.contextPath}/annuncio/delete/${utenteItem.id }">Delete</a>
 											</c:if>
 											
 										</td>

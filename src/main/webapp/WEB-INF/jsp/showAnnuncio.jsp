@@ -1,4 +1,5 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!doctype html>
 <html lang="it" class="h-100">
 <head>
@@ -55,6 +56,7 @@
 			    
 			    
 			    <div class='card-footer'>
+			    <sec:authorize access="isAuthenticated()">
 			        <form action="${pageContext.request.contextPath}/confermaAcquisto" method="post">
 					    		<input type="hidden" name="idAnnuncio" value="${show_annuncio_attr.id}">
 					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
@@ -63,6 +65,18 @@
 						            <i class='fa fa-chevron-left'></i> Back
 						        </a>
 					</form>
+				</sec:authorize>	
+					
+				<sec:authorize access="!isAuthenticated()">
+					<form action="${pageContext.request.contextPath}/loginAcquisto" method="post">
+					    		<input type="hidden" name="idAnnuncio" id="idAnnuncio" value="${show_annuncio_attr.id}">
+					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+						    	<button type="submit" name="idAnnuncio" id="idAnnuncio" class="btn btn-primary">Conferma Acquist</button>
+						        <a href="${pageContext.request.contextPath}/film/" class='btn btn-outline-secondary' style='width:80px'>
+						            <i class='fa fa-chevron-left'></i> Back
+						        </a>
+					</form>
+				</sec:authorize>
 			    </div>
 			<!-- end card -->
 			</div>	

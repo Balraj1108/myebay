@@ -53,4 +53,10 @@ public class CategoriaServiceImpl implements CategoriaService {
 		return categoriaRepository.findByDescrizioneAndCodice(descrizione, codice);
 	}
 
+	@Override
+	public List<Categoria> findAllCategorieByIds(Long[] ids) {
+		// TODO Auto-generated method stub
+		return categoriaRepository.findAllCategorieByIds(ids);
+	}
+
 }

@@ -16,5 +16,7 @@ public interface RuoloService {
 	public void rimuovi(Long idToDelete) ;
 
 	public Ruolo cercaPerDescrizioneECodice(String descrizione, String codice) ;
+	
+	public List<Ruolo> findAllRuoliByIds(Long[] ids);
 
 }

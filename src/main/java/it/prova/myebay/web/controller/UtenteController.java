@@ -113,5 +113,14 @@ public class UtenteController {
 		utenteService.changeUserAbilitation(idUtente);
 		return "redirect:/utente";
 	}
+	
+	@GetMapping("/show/{idUtente}")
+	public String showUtente(@PathVariable(required = true) Long idUtente, Model model) {
+		Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli(idUtente);
+		UtenteDTO result = UtenteDTO.buildUtenteDTOFromModel(utenteModel, true);
+		model.addAttribute("show_utente_attr", result);
+		model.addAttribute("ruoli_utente_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.findAllRuoliByIds(result.getRuoliIds())));
+		return "utente/show";
+	}
 
 }

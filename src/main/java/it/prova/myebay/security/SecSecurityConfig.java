@@ -40,7 +40,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          .antMatchers("/login").permitAll()
          .antMatchers("/listAnnuncio").permitAll()
          .antMatchers("/showAnnuncio/**").permitAll()
-         
+         .antMatchers("/loginAcquisto/**").permitAll()
          .antMatchers("/home").permitAll()
          .antMatchers("/").permitAll()
          .antMatchers("/utente/**").hasRole("ADMIN")

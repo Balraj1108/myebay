@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Component;
 
 import it.prova.myebay.dto.UtenteDTO;
@@ -23,8 +26,12 @@ public class CustomAuthenticationSuccessHandlerImpl implements AuthenticationSuc
 	private UtenteRepository utenteRepository;
 
 	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+	public void onAuthenticationSuccess(
+			HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+		
+		
+		
 		
 		//voglio mettere in sessione uno userInfo perché spring security mette solo un principal da cui attingere username
 		Utente utenteFromDb = utenteRepository.findByUsername(authentication.getName()).orElseThrow(() -> new UsernameNotFoundException("Username " + authentication.getName() + " not found"));
@@ -34,7 +41,14 @@ public class CustomAuthenticationSuccessHandlerImpl implements AuthenticationSuc
 		utenteParziale.setId(utenteFromDb.getId());
 		utenteParziale.setCreditoResiduo(utenteFromDb.getCreditoResiduo());
 		request.getSession().setAttribute("userInfo", utenteParziale);
-		response.sendRedirect("home");
+		
+		response.sendRedirect("/home");
+		
+		
+
+		
+		
+		
 
 	}
 

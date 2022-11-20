@@ -3,9 +3,12 @@ package it.prova.myebay.web.controller;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -95,5 +98,13 @@ public class AcquistoController {
 		
 		
 		return "acquisto/list";
+	}
+	
+	@PostMapping("/loginAcquisto")
+	public String loginAcquisto(HttpServletRequest request, HttpServletResponse response) {
+		
+		RequestCache requestCache = new HttpSessionRequestCache();
+	    requestCache.saveRequest(request,response);
+	    return "redirect:/login";
 	}
 }

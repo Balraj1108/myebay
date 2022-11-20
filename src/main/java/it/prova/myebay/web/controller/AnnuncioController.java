@@ -145,4 +145,22 @@ public class AnnuncioController {
 		return "redirect:/home";
 	}
 	
+	
+	@GetMapping("/annuncio/delete/{idAnnuncio}")
+	public String delete(@PathVariable(required = true) Long idAnnuncio, Model model, HttpServletRequest request) {
+		AnnuncioDTO annuncioDTO = AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoConCategorie(idAnnuncio), false, true);
+		model.addAttribute("delete_annuncio_attr", annuncioDTO);
+		model.addAttribute("categorie_annuncio_attr", CategoriaDTO
+				.createCategoriaDTOListFromModelList(categoriaService.findAllCategorieByIds(annuncioDTO.getCategorieIds())));
+		return "annuncio/delete";
+	}
+	
+	@PostMapping("/annuncio/remove")
+	public String remove(@RequestParam Long idAnnuncio, RedirectAttributes redirectAttrs) {
+
+		annuncioService.rimuovi(idAnnuncio);
+		
+		redirectAttrs.addFlashAttribute("successMessage", "Eliminazione eseguita correttamente");
+		return "redirect:/home";
+	}
 }
