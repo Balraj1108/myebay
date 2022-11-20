@@ -43,6 +43,7 @@ public class UtenteDTO {
 	private StatoUtente stato;
 
 	private Long[] ruoliIds;
+	
 
 	public UtenteDTO() {
 	}
@@ -130,6 +131,17 @@ public class UtenteDTO {
 		this.ruoliIds = ruoliIds;
 	}
 	
+	
+	
+	public Integer getCreditoResiduo() {
+		return creditoResiduo;
+	}
+
+	public void setCreditoResiduo(Integer creditoResiduo) {
+		this.creditoResiduo = creditoResiduo;
+	}
+
+
 	public boolean isAttivo() {
 		return this.stato != null && this.stato.equals(StatoUtente.ATTIVO);
 	}

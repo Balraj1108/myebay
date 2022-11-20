@@ -1,3 +1,6 @@
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!doctype html>
 <html lang="it" class="h-100" >
 	 <head>
@@ -51,8 +54,45 @@
 			     <div class="p-5 mb-4 bg-light rounded-3">
 				      <div class="container-fluid py-5">
 				        <h1 class="display-5 fw-bold">Benvenuto Su MyEbay</h1>
-				        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. </p>
-				        <a class="btn btn-primary btn-lg" href="${pageContext.request.contextPath}/regista/search">Vai a Ricerca</a>
+				        <p class="col-md-8 fs-4">Sito numero uno per comprare e vendere</p>
+				        
+							<form method="post" action="${pageContext.request.contextPath}/listAnnuncio" class="row g-3">
+							
+								<div class="col-md-6">
+									<label for="testoannuncio" class="form-label">Testo</label>
+									<input type="text" name="testoannuncio" id="testoannuncio" class="form-control" placeholder="Inserire testo" >
+								</div>
+								
+								<div class="col-md-6">
+									<label for="prezzo" class="form-label">Prezzo ‚Ç¨</label>
+									<input type="number" class="form-control" name="prezzo" id="prezzo" placeholder="Inserire prezzo" >
+								</div>
+								
+								
+								<div class="col-md-6">
+									<label for="categorie" class="form-label">Categorie</label>
+									<c:forEach items="${categorie_totali_attr}" var="ruoloItem">
+										<div class="form-check">
+  											<input class="form-check-input" type="checkbox" value="${ruoloItem.id}" id="flexCheckDefault" name="categorie" <c:if test="${ruoli_assegnati.contains(ruoloItem.id)}">checked="checked"</c:if>>
+  											<label class="form-check-label" for="flexCheckDefault">${ruoloItem.codice}</label>
+										</div>
+									</c:forEach>
+								</div>	
+									
+									
+								 
+								
+									
+									
+								<div class="col-12">
+									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Ricerca Annuncio</button>
+									<!--  <input class="btn btn-outline-warning" type="reset" value="Ripulisci">
+									<a class="btn btn-outline-primary ml-2" href="${pageContext.request.contextPath }/film/insert">Add New</a>
+									-->
+								</div>
+								
+							</form>				        
+				        
 				      </div>
 			    </div>
 			    
@@ -68,7 +108,7 @@
 			        <h2>Ricerca Registi</h2>
 			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
 			        <a href="${pageContext.request.contextPath}/regista/search" class="icon-link">
-			          Vai alla funzionalit‡
+			          Vai alla funzionalit√†
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
 			      </div>
@@ -79,7 +119,7 @@
 			        <h2>Inserisci Nuovo Regista</h2>
 			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
 			        <a href="${pageContext.request.contextPath}/regista/insert" class="icon-link">
-			          Vai alla funzionalit‡
+			          Vai alla funzionalit√†
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
 			      </div>
@@ -90,7 +130,7 @@
 			        <h2>Ricerca Film</h2>
 			        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
 			        <a href="${pageContext.request.contextPath}/film/search" class="icon-link">
-			          Vai alla funzionalit‡
+			          Vai alla funzionalit√†
 			          <svg class="bi" width="1em" height="1em"><use xlink:href="#chevron-right"/></svg>
 			        </a>
 			      </div>

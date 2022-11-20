@@ -47,4 +47,11 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 		annuncioRepository.deleteById(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Annuncio> findByExample(Annuncio example) {
+		// TODO Auto-generated method stub
+		return annuncioRepository.findByExample(example);
+	}
+
 }

@@ -14,5 +14,7 @@ public interface AnnuncioService {
 
 	public void inserisciNuovo(Annuncio annuncioInstance) ;
 
-	public void rimuovi(Long id);	
+	public void rimuovi(Long id);
+	
+	List<Annuncio> findByExample(Annuncio example);
 }
