@@ -3,6 +3,7 @@ package it.prova.myebay.web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import it.prova.myebay.dto.CategoriaDTO;
@@ -20,5 +21,12 @@ public class HomeController {
 		model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
 		model.addAttribute("insert_utente_attr", new UtenteDTO());
 		return "index";
+	}
+	
+	@GetMapping("/registrazione")
+	public String registrazione(Model model) {
+		
+		model.addAttribute("insert_utente_attr", new UtenteDTO());
+		return "registrazione";
 	}
 }

@@ -1,19 +1,20 @@
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!doctype html>
-<html lang="it">
-	<head>
-	  <meta charset="utf-8">
-		<title>Accedi</title>
+<html lang="it" class="h-100">
+<head>
+	<!-- Common imports in pages -->
+	<jsp:include page="./header.jsp" />
+	<title>Visualizza elemento</title>
 	
-		<!-- Common imports in pages -->
-	 	<jsp:include page="./header.jsp" />
+</head>
+<body  class="text-center">
+	<!-- Fixed navbar -->
+	<jsp:include page="./navbar.jsp" />
 	
-	
-		 <!-- Custom styles for login -->
-	    <link href="assets/css/signin.css" rel="stylesheet">
-	</head>
-	
-	<body class="text-center">
-		<main class="form-signin">
+	<!-- Begin page content -->
+	<main class="form-signin">
+		<div class="container">
+			<div class='card'>
 			<form class="form-signin" name='login' action="login" method='POST' novalidate="novalidate">
 		   	
 			   	<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
@@ -33,7 +34,7 @@
 			      <input type="text" name="username" class="form-control" id="inputUsername" placeholder="username">
 			      <label for="inputUsername">Username</label>
 			    </div>
-			    <div class="form-floating">
+			    <div style="margin-top: 4px" class="form-floating">
 			      <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password">
 			      <label for="inputPassword">Password</label>
 			    </div>
@@ -43,12 +44,19 @@
 			        <input type="checkbox" value="remember-me"> Remember me
 			      </label>
 			    </div>
+			    <div style="margin-top: 4px">
 			    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-			    <p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
-			  
-			  
-			  
-			</form>
+			    </div>
+			    </form>
+			    
+			    <div style="margin-top: 4px">
+				<a class="btn btn-sm btn-outline-primary" href="${pageContext.request.contextPath}/registrazione">Sign Up</a>			    
+				<p class="mt-5 mb-3 text-muted">&copy; 2017-2021</p>
+				</div>
+			</div>
+			</div>
 		</main>
-	</body>
+	<jsp:include page="./footer.jsp" />
+	
+</body>
 </html>
