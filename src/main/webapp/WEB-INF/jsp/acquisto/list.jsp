@@ -37,23 +37,22 @@
 			            <table class='table table-striped ' >
 			                <thead>
 			                    <tr>
-			                        <th>Testo</th>
+			                        <th>Descrizione prodotto</th>
 			                        <th>Prezzo</th>
-			                        <th>Data di pubblicazione</th>
-			                        <th>Nome Utente Annuncio</th>
+			                        <th>Data di acquisto</th>
+			                        
 			                        <th>Azioni</th>
 			                    </tr>
 			                </thead>
 			                <tbody>
-			                	<c:forEach items="${annuncio_list_attribute }" var="utenteItem">
+			                	<c:forEach items="${acquisto_list_attribute }" var="utenteItem">
 									<tr>
-										<td>${utenteItem.testoAnnuncio }</td>
+										<td>${utenteItem.descrizione }</td>
 										<td>${utenteItem.prezzo }</td>
 										<td>${utenteItem.data }</td>
-										<td>${utenteItem.aperto }</td>
+										
 										<td>
 											<a class="btn btn-sm btn-outline-secondary" href="${pageContext.request.contextPath}/showAnnuncio/${utenteItem.id }">Visualizza</a>
-											<a class="btn  btn-sm btn-outline-primary ml-2 mr-2" href="${pageContext.request.contextPath}/utente/edit/${utenteItem.id }">Edit</a>
 											
 										</td>
 									</tr>

@@ -46,4 +46,11 @@ public class AcquistoServiceImpl implements AcquistoService {
 		acquistoRepository.deleteById(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public List<Acquisto> FindAllAcquistiById(Long id) {
+		// TODO Auto-generated method stub
+		return acquistoRepository.FindAllAcquistiById(id);
+	}
+
 }

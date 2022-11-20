@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,13 +43,18 @@ public class AcquistoController {
 	private AcquistoService acquistoService;
 	
 	
-	@GetMapping("/acquisto/list")
-	public String insertAnnuncio(Model model) {
+	@PostMapping("/acquisto/list")
+	public String insertAnnuncio(@RequestParam(name = "utenteId") Long utenteId
+			,Model model) {
 		//model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
 		//model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
 		//model.addAttribute("insert_annuncio_attr", new AnnuncioDTO());
 		//Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli();
 		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
+		
+			model.addAttribute("acquisto_list_attribute",
+					AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.FindAllAcquistiById(utenteId), false));
+			
 		return "acquisto/list";
 	}
 	

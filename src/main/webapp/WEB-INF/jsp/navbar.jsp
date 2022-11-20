@@ -22,13 +22,36 @@
           <sec:authorize access="hasAnyRole('ADMIN','CLASSIC_USER')">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+            
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/home">Home</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/list">Acquisti Effettuati</a></li>
+              
+              
+              <li>
+              <form action="${pageContext.request.contextPath}/acquisto/list" method="post">
+              <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+              <!-- 
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/list">Acquisti Effettuati</a>
+               -->
+              <button type="submit" name="idAnnuncio" id="idAnnuncio" class="dropdown-item">Acquisti Effettuati</button>
+              </form>
+              </li>
+              
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci Annuncio</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/film/search">Ricerca Film</a></li>
+              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/film/search">Gestione Annuncio</a></li>
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/film/insert">Inserisci Film</a></li>
             </ul> 
+           <!-- 
+           <form action="${pageContext.request.contextPath}/confermaAcquisto" method="post">
+					    		<input type="hidden" name="idAnnuncio" value="${show_annuncio_attr.id}">
+					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+						    	<button type="submit" name="idAnnuncio" id="idAnnuncio" class="btn btn-primary">Conferma Acquisto</button>
+						        <a href="${pageContext.request.contextPath}/film/" class='btn btn-outline-secondary' style='width:80px'>
+						            <i class='fa fa-chevron-left'></i> Back
+						        </a>
+					</form>
+            -->
+           
           </li>
           </sec:authorize>
           
@@ -52,6 +75,17 @@
 			
 	      </div>
       </sec:authorize>
+      
+      <sec:authorize access="!isAuthenticated()">
+	      <div class="col-md-3 text-end">
+	        <p class="navbar-text">
+	        <a href="${pageContext.request.contextPath}/login">Login</a>
+	    	 
+	    	 </p>
+			
+	      </div>
+      </sec:authorize>
+      
     </div>
   </nav>
   
