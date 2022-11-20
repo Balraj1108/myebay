@@ -54,4 +54,11 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 		return annuncioRepository.findByExample(example);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Annuncio caricaSingoloElementoEager(Long id) {
+		// TODO Auto-generated method stub
+		return annuncioRepository.FindSingleAnnuncioEager(id);
+	}
+
 }

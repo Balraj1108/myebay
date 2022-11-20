@@ -22,66 +22,47 @@
 			
 			    <div class='card-body'>
 			    	<dl class="row">
-					  <dt class="col-sm-3 text-right">Id:</dt>
-					  <dd class="col-sm-9">${show_film_attr.id}</dd>
+					  <dt class="col-sm-3 text-right">Descrizione Annuncio:</dt>
+					  <dd class="col-sm-9">${show_annuncio_attr.testoAnnuncio}</dd>
 			    	</dl>
 			    	
 			    	<dl class="row">
-					  <dt class="col-sm-3 text-right">Titolo:</dt>
-					  <dd class="col-sm-9">${show_film_attr.titolo}</dd>
+					  <dt class="col-sm-3 text-right">Prezzo:</dt>
+					  <dd class="col-sm-9">${show_annuncio_attr.prezzo}</dd>
 			    	</dl>
 			    	
 			    	<dl class="row">
-					  <dt class="col-sm-3 text-right">Genere:</dt>
-					  <dd class="col-sm-9">${show_film_attr.genere}</dd>
+					  <dt class="col-sm-3 text-right">Aperto:</dt>
+					  <dd class="col-sm-9">${show_annuncio_attr.aperto}</dd>
 			    	</dl>
 			    	
 			    	<dl class="row">
 					  <dt class="col-sm-3 text-right">Data Pubblicazione:</dt>
-					  <dd class="col-sm-9"><fmt:formatDate type = "date" value = "${show_film_attr.dataPubblicazione}" /></dd>
+					  <dd class="col-sm-9"><fmt:formatDate type = "date" value = "${show_annuncio_attr.data}" /></dd>
 			    	</dl>
 			    	
 			    	<dl class="row">
-					  <dt class="col-sm-3 text-right">Durata (min.):</dt>
-					  <dd class="col-sm-9">${show_film_attr.minutiDurata}</dd>
+					  <dt class="col-sm-3 text-right">Nome Venditore:</dt>
+					  <dd class="col-sm-9">${show_annuncio_attr.utenteInserimento.nome}</dd>
 			    	</dl>
 			    	
-			    	<!-- info Regista -->
-			    	<p>
-					  <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-					    Info Regista
-					  </a>
-					</p>
-					<div class="collapse" id="collapseExample">
-					  <div class="card card-body">
-					  	<dl class="row">
-						  <dt class="col-sm-3 text-right">Nome:</dt>
-						  <dd class="col-sm-9">${show_film_attr.regista.nome}</dd>
-					   	</dl>
-					   	<dl class="row">
-						  <dt class="col-sm-3 text-right">Cognome:</dt>
-						  <dd class="col-sm-9">${show_film_attr.regista.cognome}</dd>
-					   	</dl>
-					   	<dl class="row">
-						  <dt class="col-sm-3 text-right">Nickname:</dt>
-						  <dd class="col-sm-9">${show_film_attr.regista.nickName}</dd>
-					   	</dl>
-					   	<dl class="row">
-						  <dt class="col-sm-3 text-right">Sesso:</dt>
-						  <dd class="col-sm-9">${show_film_attr.regista.sesso}</dd>
-					   	</dl>
-					    
-					  </div>
-					<!-- end info Regista -->
-					</div>
+			    	
+					
 			    	
 			    <!-- end card body -->
 			    </div>
 			    
+			    
+			    
 			    <div class='card-footer'>
-			        <a href="${pageContext.request.contextPath }/film/" class='btn btn-outline-secondary' style='width:80px'>
-			            <i class='fa fa-chevron-left'></i> Back
-			        </a>
+			        <form action="${pageContext.request.contextPath}/confermaAcquisto" method="post">
+					    		<input type="hidden" name="idAnnuncio" value="${show_annuncio_attr.id}">
+					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+						    	<button type="submit" name="idAnnuncio" id="idAnnuncio" class="btn btn-primary">Conferma Acquisto</button>
+						        <a href="${pageContext.request.contextPath}/film/" class='btn btn-outline-secondary' style='width:80px'>
+						            <i class='fa fa-chevron-left'></i> Back
+						        </a>
+					</form>
 			    </div>
 			<!-- end card -->
 			</div>	

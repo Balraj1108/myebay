@@ -17,4 +17,6 @@ public interface AnnuncioService {
 	public void rimuovi(Long id);
 	
 	List<Annuncio> findByExample(Annuncio example);
+	
+	public Annuncio caricaSingoloElementoEager(Long id);
 }
