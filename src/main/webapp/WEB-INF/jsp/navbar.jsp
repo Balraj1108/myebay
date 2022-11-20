@@ -24,7 +24,6 @@
             <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
             
             <ul class="dropdown-menu" aria-labelledby="dropdown07">
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/home">Home</a></li>
               
               
               <li>
@@ -38,8 +37,19 @@
               </li>
               
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci Annuncio</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/film/search">Gestione Annuncio</a></li>
-              <li><a class="dropdown-item" href="${pageContext.request.contextPath}/film/insert">Inserisci Film</a></li>
+              
+              
+              <li>
+              
+              <form action="${pageContext.request.contextPath}/annuncio/list" method="post">
+              <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+              <!-- 
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/list">Acquisti Effettuati</a>
+               -->
+              <button type="submit" name="idAnnuncio" id="idAnnuncio" class="dropdown-item">Gestione Annunci</button>
+              </form>
+              
+              </li>
             </ul> 
            <!-- 
            <form action="${pageContext.request.contextPath}/confermaAcquisto" method="post">

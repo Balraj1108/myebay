@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
 import it.prova.myebay.dto.RuoloDTO;
@@ -86,5 +87,20 @@ public class AnnuncioController {
 		model.addAttribute("show_annuncio_attr",
 				AnnuncioDTO.buildAnnuncioDTOFromModel(annuncioService.caricaSingoloElementoEager(idAnnuncio), true));
 		return "showAnnuncio";
+	}
+	
+	@PostMapping("/annuncio/list")
+	public String insertAnnuncio(@RequestParam(name = "utenteId") Long utenteId
+			,Model model) {
+		//model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
+		//model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
+		//model.addAttribute("insert_annuncio_attr", new AnnuncioDTO());
+		//Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli();
+		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
+		
+			model.addAttribute("annuncio_list_attribute",
+					AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.FindAllAnnunciById(utenteId), true));
+			
+		return "annuncio/list";
 	}
 }

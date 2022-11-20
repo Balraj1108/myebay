@@ -19,4 +19,6 @@ public interface AnnuncioService {
 	List<Annuncio> findByExample(Annuncio example);
 	
 	public Annuncio caricaSingoloElementoEager(Long id);
+	
+	public 	List<Annuncio> FindAllAnnunciById(Long id);
 }

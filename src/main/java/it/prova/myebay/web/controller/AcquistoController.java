@@ -53,7 +53,7 @@ public class AcquistoController {
 		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
 		
 			model.addAttribute("acquisto_list_attribute",
-					AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.FindAllAcquistiById(utenteId), false));
+					AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.FindAllAcquistiById(utenteId), true));
 			
 		return "acquisto/list";
 	}
@@ -71,6 +71,9 @@ public class AcquistoController {
 			redirectAttrs.addFlashAttribute("errorMessage", "Credito esaurito");
 			return "redirect:/home";
 		}
+		Integer creditoAggiornato = utente.getCreditoResiduo() - annuncio.getPrezzo();
+		utente.setCreditoResiduo(creditoAggiornato);
+		utenteService.aggiorna(utente);
 		
 		acquistoDTO.setData(new Date());
 		acquistoDTO.setUtenteAcquirente(UtenteDTO.buildUtenteDTOFromModel

@@ -61,4 +61,10 @@ public class AnnuncioServiceImpl implements AnnuncioService {
 		return annuncioRepository.FindSingleAnnuncioEager(id);
 	}
 
+	@Override
+	public List<Annuncio> FindAllAnnunciById(Long id) {
+		// TODO Auto-generated method stub
+		return annuncioRepository.FindAllAnnunciById(id);
+	}
+
 }
