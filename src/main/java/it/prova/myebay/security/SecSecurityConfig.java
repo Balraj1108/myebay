@@ -42,6 +42,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          .antMatchers("/showAnnuncio/**").permitAll()
          //.antMatchers("/loginAcquisto/**").permitAll()
          .antMatchers("/registrazione").permitAll()
+         .antMatchers("/registraUtente").permitAll()
          
          
          .antMatchers("/home").permitAll()

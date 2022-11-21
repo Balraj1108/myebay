@@ -49,17 +49,14 @@ public class AcquistoController {
 	private AcquistoService acquistoService;
 	
 	
-	@PostMapping("/acquisto/list")
-	public String insertAnnuncio(@RequestParam(name = "utenteId") Long utenteId
-			,Model model) {
-		//model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
-		//model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
-		//model.addAttribute("insert_annuncio_attr", new AnnuncioDTO());
-		//Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli();
-		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
+	@GetMapping("/acquisto/list")
+	public String insertAnnuncio(HttpServletRequest request,
+			Model model) {
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		Long idUtenteSessione = utenteInSessione.getId();
 		
 			model.addAttribute("acquisto_list_attribute",
-					AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.FindAllAcquistiById(utenteId), true));
+					AcquistoDTO.createAcquistoDTOListFromModelList(acquistoService.FindAllAcquistiById(idUtenteSessione), true));
 			
 		return "acquisto/list";
 	}

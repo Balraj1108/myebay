@@ -94,17 +94,15 @@ public class AnnuncioController {
 		return "showAnnuncio";
 	}
 	
-	@RequestMapping("/annuncio/list")
-	public String insertAnnuncio(@RequestParam(name = "utenteId") Long utenteId
+	@GetMapping("/annuncio/list")
+	public String insertAnnuncio(HttpServletRequest request
 			,Model model) {
-		//model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
-		//model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
-		//model.addAttribute("insert_annuncio_attr", new AnnuncioDTO());
-		//Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli();
-		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
+		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
+		Long idUtenteSessione = utenteInSessione.getId();
+		
 		
 			model.addAttribute("annuncio_list_attribute",
-					AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.FindAllAnnunciById(utenteId), true, true));
+					AnnuncioDTO.createAnnuncioDTOListFromModelList(annuncioService.FindAllAnnunciById(idUtenteSessione), true, true));
 			
 		return "annuncio/list";
 	}

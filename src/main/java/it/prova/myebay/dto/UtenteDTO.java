@@ -44,7 +44,7 @@ public class UtenteDTO {
 
 	private Long[] ruoliIds;
 	
-
+	
 	public UtenteDTO() {
 	}
 

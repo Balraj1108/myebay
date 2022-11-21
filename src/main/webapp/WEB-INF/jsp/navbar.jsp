@@ -27,24 +27,18 @@
               
               
               <li>
-              <form action="${pageContext.request.contextPath}/acquisto/list" method="post">
-              <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
-              <!-- 
+              
+              
               <a class="dropdown-item" href="${pageContext.request.contextPath}/acquisto/list">Acquisti Effettuati</a>
-               -->
-              <button type="submit" name="idAnnuncio" id="idAnnuncio" class="dropdown-item">Acquisti Effettuati</button>
-              </form>
+               
+         
               </li>
               
               <li><a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/insert">Inserisci Annuncio</a></li>
               
               
               <li>
-              
-              <form action="${pageContext.request.contextPath}/annuncio/list" method="post">
-              <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
-              <button type="submit" name="idAnnuncio" id="idAnnuncio" class="dropdown-item">Gestione Annunci</button>
-              </form>
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/annuncio/list">Gestione Annunci</a>
               
               </li>
             </ul> 
