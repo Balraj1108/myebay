@@ -28,4 +28,5 @@ public interface UtenteService {
 	
 	public Utente findByUsername(String username);
 
+	public void resetPass(Long idUtente );
 }

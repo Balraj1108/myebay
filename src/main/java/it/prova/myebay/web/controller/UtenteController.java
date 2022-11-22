@@ -2,7 +2,12 @@ package it.prova.myebay.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -35,6 +40,7 @@ public class UtenteController {
 
 	@Autowired
 	private RuoloService ruoloService;
+	
 
 	
 	@GetMapping
@@ -111,6 +117,7 @@ public class UtenteController {
 	@PostMapping("/cambiaStato")
 	public String cambiaStato(@RequestParam(name = "idUtenteForChangingStato", required = true) Long idUtente) {
 		utenteService.changeUserAbilitation(idUtente);
+		
 		return "redirect:/utente";
 	}
 	
@@ -123,6 +130,15 @@ public class UtenteController {
 		return "utente/show";
 	}
 	
+	@PostMapping("/resetPassword")
+	public String resetPassword(@RequestParam(name = "idUtenteForPasswordReset", required = true) String idUtente, RedirectAttributes redirectAttrs) {
+		if (idUtente != null && NumberUtils.isCreatable(idUtente)) {
+			utenteService.resetPass(Long.parseLong(idUtente));
+			redirectAttrs.addFlashAttribute("successMessage", "Password resettata con successo");
+		}else
+			redirectAttrs.addFlashAttribute("errorMessage", "Password non resettata");
+		return "redirect:/utente";
+	}
 	
 
 }
