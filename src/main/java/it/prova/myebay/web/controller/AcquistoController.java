@@ -1,5 +1,6 @@
 package it.prova.myebay.web.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,6 +75,12 @@ public class AcquistoController {
 			redirectAttrs.addFlashAttribute("errorMessage", "Credito esaurito");
 			return "redirect:/home";
 		}
+		
+		if(annuncio.getUtenteInserimento().getId()==utenteId) {
+            redirectAttrs.addFlashAttribute("errorMessage", "Non puoi acquistare un tuo annuncio");
+            return "redirect:/home";
+        }
+		
 		Integer creditoAggiornato = utente.getCreditoResiduo() - annuncio.getPrezzo();
 		utente.setCreditoResiduo(creditoAggiornato);
 		utenteService.aggiorna(utente);
@@ -97,11 +104,27 @@ public class AcquistoController {
 		return "acquisto/list";
 	}
 	
-	@PostMapping("/loginAcquisto")
-	public String loginAcquisto(HttpServletRequest request, HttpServletResponse response) {
+	@GetMapping("/loginAcquisto")
+	public String loginAcquisto(@RequestParam(required = true) Long idAnnuncioWithNoAuth,
+			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
+		System.out.println("maledetto   "+idAnnuncioWithNoAuth); 
 		
 		RequestCache requestCache = new HttpSessionRequestCache();
-	    requestCache.saveRequest(request,response);
-	    return "redirect:/login";
+		
+		
+		model.addAttribute("idAnnuncioWithNoAuth", idAnnuncioWithNoAuth);
+		return "/login";
 	}
+	
+	/*
+	@GetMapping("/acquistaWithoutAuth")
+	public String acquistaWithoutAuth(@RequestParam(required = true) Long idAnnuncioWithNoAuth,
+			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
+		System.out.println("maledetto   "+idAnnuncioWithNoAuth);
+		if (principal != null) {
+			return this.acquisto(idAnnuncioWithNoAuth, model, redirectAttrs, request);
+		}
+		model.addAttribute("idAnnuncioWithNoAuth", idAnnuncioWithNoAuth);
+		return "/login";
+	}*/
 }

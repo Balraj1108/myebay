@@ -15,8 +15,10 @@
 	<main class="form-signin">
 		<div class="container">
 			<div class='card'>
-			<form class="form-signin" name='login' action="login" method='POST' novalidate="novalidate">
+			<form class="form-signin" name='login' action="${pageContext.request.contextPath}/login" method='POST' novalidate="novalidate">
 		   	
+		   		<input type="hidden" name="idAnnuncioWithNoAuth" value="${idAnnuncioWithNoAuth }">
+		   		
 			   	<div class="alert alert-danger alert-dismissible fade show ${errorMessage==null?'d-none': ''}" role="alert">
 				  ${errorMessage}
 				</div>

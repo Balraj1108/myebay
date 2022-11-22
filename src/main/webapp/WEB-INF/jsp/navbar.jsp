@@ -77,7 +77,8 @@
 	      </div>
       </sec:authorize>
       
-      <sec:authorize access="!isAuthenticated()">
+      
+      <sec:authorize access="isAnonymous()">
 	      <div class="col-md-3 text-end">
 	        <p class="navbar-text">
 	        <a href="${pageContext.request.contextPath}/login">Login</a>

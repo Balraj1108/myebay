@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.CookieRequestCache;
 
 @SuppressWarnings("deprecation")
 @Configuration
@@ -43,6 +44,9 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          //.antMatchers("/loginAcquisto/**").permitAll()
          .antMatchers("/registrazione").permitAll()
          .antMatchers("/registraUtente").permitAll()
+         .antMatchers("/loginAcquisto").permitAll()
+         
+         //loginAcquisto
          
          
          .antMatchers("/home").permitAll()
@@ -60,6 +64,8 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
          	.successHandler(successHandler)
          	.failureUrl("/login?error=true")
          	.permitAll()
+         .and()
+         .requestCache().requestCache(new CookieRequestCache())
          .and()
          	.logout()
          	.logoutSuccessUrl("/executeLogout")

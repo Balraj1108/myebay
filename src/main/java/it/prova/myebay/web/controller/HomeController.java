@@ -60,7 +60,7 @@ public class HomeController {
 		
 		
 		
-		utenteDTO.setStato(StatoUtente.CREATO);
+		//utenteDTO.setStato(StatoUtente.CREATO);
 		utenteService.inserisciNuovo(utenteDTO.buildUtenteModel(false));
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente aspettare admin per attivazione");

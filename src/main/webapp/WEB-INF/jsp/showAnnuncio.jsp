@@ -1,5 +1,6 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="it" class="h-100">
 <head>
@@ -57,26 +58,23 @@
 			    
 			    <div class='card-footer'>
 			    <sec:authorize access="isAuthenticated()">
+			    
 			        <form action="${pageContext.request.contextPath}/confermaAcquisto" method="post">
-					    		<input type="hidden" name="idAnnuncio" value="${show_annuncio_attr.id}">
-					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
-						    	<button type="submit" name="idAnnuncio" id="idAnnuncio" class="btn btn-primary">Conferma Acquisto</button>
-						        <a href="${pageContext.request.contextPath}/film/" class='btn btn-outline-secondary' style='width:80px'>
+			        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmOperationModal">
+					  Compra
+					</button>
+					    		
+						        <a href="${pageContext.request.contextPath}/listAnnuncio" class='btn btn-outline-secondary' style='width:80px'>
 						            <i class='fa fa-chevron-left'></i> Back
 						        </a>
 					</form>
 				</sec:authorize>	
 					
+				<c:if test="${show_annuncio_attr.aperto }">	
 				<sec:authorize access="!isAuthenticated()">
-					<form action="${pageContext.request.contextPath}/loginAcquisto" method="post">
-					    		<input type="hidden" name="idAnnuncio" id="idAnnuncio" value="${show_annuncio_attr.id}">
-					    		<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
-						    	<button type="submit" name="idAnnuncio" id="idAnnuncio" class="btn btn-primary">Conferma Acquist</button>
-						        <a href="${pageContext.request.contextPath}/film/" class='btn btn-outline-secondary' style='width:80px'>
-						            <i class='fa fa-chevron-left'></i> Back
-						        </a>
-					</form>
+							   		<a class="btn btn-success" href="${pageContext.request.contextPath}/loginAcquisto?idAnnuncioWithNoAuth=${show_annuncio_attr.id }">Acquist</a> 
 				</sec:authorize>
+				</c:if>
 			    </div>
 			<!-- end card -->
 			</div>	
@@ -86,6 +84,34 @@
 		
 	</main>
 	<jsp:include page="./footer.jsp" />
+	
+	<!-- Modal -->
+	<div class="modal fade" id="confirmOperationModal" tabindex="-1"  aria-labelledby="confirmOperationModalLabel"
+	    aria-hidden="true">
+	    <div class="modal-dialog modal-dialog-centered" >
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="confirmOperationModalLabel">Conferma Aquisto</h5>
+	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body">
+	                Continuare con l'aquisto?
+	            </div>
+	            <form method="post" action="${pageContext.request.contextPath}/confermaAcquisto" >
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary modal" data-bs-dismiss="modal">Chiudi</button>
+		            	<input type="hidden" name="idAnnuncio" value="${show_annuncio_attr.id}">
+					    <input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">
+		                <input type="submit" value="Continua"  class="btn btn-primary">
+		            </div>
+	            </form>
+	        </div>
+	    </div>
+	</div>
+	<!-- end Modal -->
+	<script type="text/javascript">
+		
+	</script>
 	
 </body>
 </html>
