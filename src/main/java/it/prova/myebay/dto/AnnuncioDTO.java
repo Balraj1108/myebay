@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Categoria;
-import it.prova.myebay.model.Ruolo;
 import it.prova.myebay.validation.ValidationNoPassword;
 import it.prova.myebay.validation.ValidationWithPassword;
 

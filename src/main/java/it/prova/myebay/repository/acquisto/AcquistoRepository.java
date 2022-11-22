@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import it.prova.myebay.model.Acquisto;
-import it.prova.myebay.model.Annuncio;
 
 
 public interface AcquistoRepository extends CrudRepository<Acquisto, Long> {

@@ -4,30 +4,23 @@ import java.security.Principal;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import it.prova.myebay.dto.AcquistoDTO;
-import it.prova.myebay.dto.AnnuncioDTO;
-import it.prova.myebay.dto.CategoriaDTO;
 import it.prova.myebay.dto.UtenteDTO;
 import it.prova.myebay.model.Annuncio;
 import it.prova.myebay.model.Utente;
 import it.prova.myebay.service.AcquistoService;
 import it.prova.myebay.service.AnnuncioService;
-import it.prova.myebay.service.CategoriaService;
-import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
 
 @Controller
@@ -36,13 +29,7 @@ public class AcquistoController {
 	
 	@Autowired
 	private AnnuncioService annuncioService;
-	
-	@Autowired
-	private CategoriaService categoriaService;
-	
-	@Autowired
-	private RuoloService ruoloService;
-	
+		
 	@Autowired
 	private UtenteService utenteService;
 	
@@ -117,15 +104,5 @@ public class AcquistoController {
 		return "/login";
 	}
 	
-	/*
-	@GetMapping("/acquistaWithoutAuth")
-	public String acquistaWithoutAuth(@RequestParam(required = true) Long idAnnuncioWithNoAuth,
-			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
-		System.out.println("maledetto   "+idAnnuncioWithNoAuth);
-		if (principal != null) {
-			return this.acquisto(idAnnuncioWithNoAuth, model, redirectAttrs, request);
-		}
-		model.addAttribute("idAnnuncioWithNoAuth", idAnnuncioWithNoAuth);
-		return "/login";
-	}*/
+	
 }

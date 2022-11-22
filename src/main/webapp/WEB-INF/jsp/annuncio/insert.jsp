@@ -91,7 +91,7 @@
 								
 								
 								
-								<input type="hidden" name="utenteId" id="utenteId" value="${userInfo.id}">	
+									
 								
 								<div class="col-12">
 									<button type="submit" name="submit" value="submit" id="submit" class="btn btn-primary">Conferma</button>

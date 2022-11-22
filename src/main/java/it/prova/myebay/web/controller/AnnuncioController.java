@@ -1,5 +1,6 @@
 package it.prova.myebay.web.controller;
 
+import java.security.Principal;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,22 +16,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import it.prova.myebay.dto.AcquistoDTO;
 import it.prova.myebay.dto.AnnuncioDTO;
 import it.prova.myebay.dto.CategoriaDTO;
 import it.prova.myebay.dto.RuoloDTO;
 import it.prova.myebay.dto.UtenteDTO;
 import it.prova.myebay.model.Annuncio;
-import it.prova.myebay.model.Utente;
 import it.prova.myebay.service.AnnuncioService;
 import it.prova.myebay.service.CategoriaService;
 import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
-import it.prova.myebay.validation.ValidationNoPassword;
 
 @Controller
 public class AnnuncioController {
@@ -46,7 +43,7 @@ public class AnnuncioController {
 	
 	@Autowired
 	private UtenteService utenteService;
-	
+		
 	@PostMapping("/listAnnuncio")
 	public String listAnnunci(Annuncio utenteExample, ModelMap model) {
 		model.addAttribute("annuncio_list_attribute",
@@ -57,21 +54,16 @@ public class AnnuncioController {
 	@GetMapping("/annuncio/insert")
 	public String insertAnnuncio(Model model) {
 		model.addAttribute("categorie_totali_attr", CategoriaDTO.createCategoriaDTOListFromModelList(categoriaService.listAll()));
-		//model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
 		model.addAttribute("insert_annuncio_attr", new AnnuncioDTO());
-		//Utente utenteModel = utenteService.caricaSingoloUtenteConRuoli();
-		//model.addAttribute("edit_utente_attr", UtenteDTO.buildUtenteDTOFromModel(utenteModel,true));
 		return "annuncio/insert";
 	}
 	
 	@PostMapping("/annuncio/save")
 	public String saveAnnuncio(
 			@Validated @ModelAttribute("insert_annuncio_attr") AnnuncioDTO annuncioDTO,
-			@RequestParam(name = "utenteId") Long utenteId,
-			BindingResult result, Model model, RedirectAttributes redirectAttrs) {
-
+			HttpServletRequest request,
+			BindingResult result, Model model, RedirectAttributes redirectAttrs, Principal principal) {
 		
-
 		if (result.hasErrors()) {
 			model.addAttribute("ruoli_totali_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.listAll()));
 			return "annuncio/insert";
@@ -80,7 +72,7 @@ public class AnnuncioController {
 		annuncioDTO.setData(new Date());
 		annuncioDTO.setAperto(true);
 		annuncioDTO.setUtenteInserimento(UtenteDTO.buildUtenteDTOFromModel
-				(utenteService.caricaSingoloUtente(utenteId), true));
+				(utenteService.findByUsername(principal.getName()), true));
 		annuncioService.inserisciNuovo(annuncioDTO.buildAnnuncioModel(true));
 
 		redirectAttrs.addFlashAttribute("successMessage", "Annuncio inserito correttamente");
@@ -134,13 +126,13 @@ public class AnnuncioController {
 		annuncioDTO.setData(new Date());
 		annuncioDTO.setAperto(true);
 		UtenteDTO utenteInSessione = (UtenteDTO) request.getSession().getAttribute("userInfo");
-		Long idUtenteSessione = utenteInSessione.getId();
+		
 		annuncioDTO.setUtenteInserimento(utenteInSessione);
 		annuncioService.aggiorna(annuncioDTO.buildAnnuncioModel(true));
 
-		redirectAttrs.addFlashAttribute("successMessage", "" + idUtenteSessione +"");
-		redirectAttrs.addFlashAttribute("utenteId", idUtenteSessione);
-		return "redirect:/home";
+		redirectAttrs.addFlashAttribute("successMessage", "Annuncio modificato correttamente");
+		
+		return "redirect:/annuncio/list";
 	}
 	
 	

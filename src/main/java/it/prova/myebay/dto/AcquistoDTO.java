@@ -1,13 +1,10 @@
 package it.prova.myebay.dto;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import it.prova.myebay.model.Acquisto;
-import it.prova.myebay.model.Annuncio;
-import it.prova.myebay.model.Categoria;
 
 public class AcquistoDTO {
 

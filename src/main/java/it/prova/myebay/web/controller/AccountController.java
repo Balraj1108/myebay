@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import it.prova.myebay.dto.RuoloDTO;
 import it.prova.myebay.dto.UtenteCambioPasswordDTO;
-import it.prova.myebay.dto.UtenteDTO;
-import it.prova.myebay.service.RuoloService;
 import it.prova.myebay.service.UtenteService;
 import it.prova.myebay.validation.ValidationNoPassword;
 import it.prova.myebay.validation.ValidationWithPassword;
@@ -29,9 +26,6 @@ public class AccountController {
 	
 	@Autowired
 	private UtenteService utenteService;
-
-	@Autowired
-	private RuoloService ruoloService;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -66,6 +60,6 @@ public class AccountController {
 		utenteService.aggiorna(utenteService.findByUsername(principal.getName()));
 
 		redirectAttrs.addFlashAttribute("successMessage", "Operazione eseguita correttamente");
-		return "redirect:/home";
+		return "redirect:/executeLogout";
 	}
 }

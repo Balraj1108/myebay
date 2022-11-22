@@ -68,24 +68,7 @@
         </ul>
       </div>
       
-     <!--   <sec:authorize access="isAuthenticated()">
-      
-      <p class="navbar-text">Utente: <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome })
-	        Credito residuo: ${userInfo.creditoResiduo }
-	        </p>
-	      <div class="col-md-3 text-end">
-	        <p class="navbar-text">Utente: <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome })
-	        Credito residuo: ${userInfo.creditoResiduo }
-	        </p>
-	        
-	        <a href="${pageContext.request.contextPath}/logout">Logout</a>
-	    	 Credito residuo: ${userInfo.creditoResiduo }
-	    	 
-			
-	      </div>
-	      
-      </sec:authorize>
-      -->
+     
       <sec:authorize access="isAuthenticated()">           
       <p class="navbar-text">Utente: 
       <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome }) Credito residuo: ${userInfo.creditoResiduo }         
