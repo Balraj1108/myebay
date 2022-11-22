@@ -67,18 +67,39 @@
 		   </sec:authorize>
         </ul>
       </div>
-      <sec:authorize access="isAuthenticated()">
+      
+     <!--   <sec:authorize access="isAuthenticated()">
+      
+      <p class="navbar-text">Utente: <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome })
+	        Credito residuo: ${userInfo.creditoResiduo }
+	        </p>
 	      <div class="col-md-3 text-end">
 	        <p class="navbar-text">Utente: <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome })
+	        Credito residuo: ${userInfo.creditoResiduo }
+	        </p>
+	        
 	        <a href="${pageContext.request.contextPath}/logout">Logout</a>
 	    	 Credito residuo: ${userInfo.creditoResiduo }
-	    	 </p>
+	    	 
 			
 	      </div>
+	      
       </sec:authorize>
+      -->
+      <sec:authorize access="isAuthenticated()">           
+      <p class="navbar-text">Utente: 
+      <sec:authentication property="name"/> (${userInfo.nome } ${userInfo.cognome }) Credito residuo: ${userInfo.creditoResiduo }         
+       <div class="nav-item dropdown">       
+               
+         <a class="nav-link dropdown-toggle text-light" href="#" id="dropdown07" data-bs-toggle="dropdown" aria-expanded="false">Il mio account</a>     
+                     <ul class="dropdown-menu" aria-labelledby="dropdown07">        
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>            
+                                       <li><a class="dropdown-item" href="${pageContext.request.contextPath}/account/cambioPassword">Cambia password</a></li>    
+                                                    </ul>          </div>       </sec:authorize>
       
       
       <sec:authorize access="isAnonymous()">
+      
 	      <div class="col-md-3 text-end">
 	        <p class="navbar-text">
 	        <a href="${pageContext.request.contextPath}/login">Login</a>

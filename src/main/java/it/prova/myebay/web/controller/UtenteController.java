@@ -122,5 +122,7 @@ public class UtenteController {
 		model.addAttribute("ruoli_utente_attr", RuoloDTO.createRuoloDTOListFromModelList(ruoloService.findAllRuoliByIds(result.getRuoliIds())));
 		return "utente/show";
 	}
+	
+	
 
 }

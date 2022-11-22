@@ -105,6 +105,7 @@ public class AcquistoController {
 	}
 	
 	@GetMapping("/loginAcquisto")
+	
 	public String loginAcquisto(@RequestParam(required = true) Long idAnnuncioWithNoAuth,
 			Model model, RedirectAttributes redirectAttrs,HttpServletRequest request, Principal principal) {
 		System.out.println("maledetto   "+idAnnuncioWithNoAuth); 
